@@ -3,7 +3,7 @@ import React from 'react'
 
 const Appreturn = () => {
   return (
-    <Redirect href="@/onboarding/screen1" />
+    <Redirect href="/onboarding/screen1" />
   )
 }
 

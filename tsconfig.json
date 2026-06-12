@@ -1,3 +1,12 @@
 {
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "target": "esnext"
+  },
   "extends": "expo/tsconfig.base"
 }
