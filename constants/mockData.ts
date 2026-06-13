@@ -46,4 +46,6 @@ export const mockProducts: Product[] = [
     status: "IN_STOCK",
     image: "www.google.com"
     },
+    
+    
 ]
