@@ -5,11 +5,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const screen1 = () => {
   return (
-    <SafeAreaView>
+    <View >
+      <Text>screen1</Text>
+      <Text>Hi</Text>
       <View>
-        <Text>screen1</Text>
+        <Text>Hi</Text>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
