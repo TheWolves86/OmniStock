@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const screen1 = () => {
+const Screen1 = () => {
   const router = useRouter()
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -16,10 +16,10 @@ const screen1 = () => {
         </View>
         <View style={{ alignItems: 'center',  }}>
         <Image 
-          source={require('../../assets/welcome-icon.png')}
-          style={{ width: 300, height: 400, marginBottom: 20 }}
+          source={require('../../assets/welcome-icon2.png')}
+          style={{ width: 300, height: 400, marginBottom: 20, borderRadius: 65 }}
           resizeMode="contain" 
-        />
+        /> 
         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 28, textAlign: 'center', marginBottom: 10 }}>
           Master Your Inventory
         </Text>
@@ -27,9 +27,23 @@ const screen1 = () => {
           Effortlessly track stock levels, manage custom templates, and get alerts in real-time.
         </Text>
         </View>
+        <View style={{ marginBottom: 20, gap: 10}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10}}>
+            <View style={{ backgroundColor: '#008080', height:10, width: 10, borderRadius: 5}}></View>
+            <View style={{ backgroundColor: 'lightgrey', height:10, width: 10, borderRadius: 6 }}></View>
+            <View style={{ backgroundColor: 'lightgrey', height:10, width: 10, borderRadius: 5 }}></View>
+          </View>
+          <TouchableOpacity style={{alignItems: 'center'}} onPress={() => router.push('/onboarding/screen2')}>
+            <View style={{ backgroundColor: "#008080", paddingVertical: 15, paddingHorizontal: 30, borderRadius: 20, width: '90%', alignItems: 'center'}}>
+              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16}}>
+                Next
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   )
 }
 
-export default screen1
+export default Screen1
