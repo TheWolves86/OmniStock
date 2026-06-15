@@ -18,16 +18,16 @@ Ui--<View>
          |---Dots<View>
          |     |
          |     |--Inactive dot<View>
-         |     |--Active dot<View>
          |     |--Inactive dot<View>
+         |     |--Active dot<View>
          |
          |---Button<TouchableOpacity>
                  |
                  |--Text<Text>
 
-Title: Grow ur Biussness
-Description: Get deep insights into your inventory, stock movements, and business performance from one place.
-Image: /assets/screen1
-Button:Next
-Active Dot:Middle
-Route:/onboarding/screen3
+Title: Seamless Billing
+Description: Generate bills,manage credit and handle the history of payments with a few taps.
+Image: /assets/screen
+Button:Get Started
+Active Dot:last
+Route:/onboarding/store-setup
