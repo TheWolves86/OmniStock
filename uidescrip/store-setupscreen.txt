@@ -1,0 +1,46 @@
+ui<SafeAreaView>
+|
+|---Header<View>
+|       |
+|       |---OmniStock<Text>
+|       |
+|       |---Help Button/?<TouchableOpacity>
+|
+|---Content<View>
+|       |
+|       |---IntroSection<ScrollView>
+|       |          |
+|       |          |---Title<Text>
+|       |          |
+|       |          |---Description<Text>
+|       |
+|       |---InputSection<View>
+|       |             |
+|       |             |---Label<Text>
+|       |             |
+|       |             |---Input<TextInput>
+|       |   
+|       |---EmployeSection<View>
+|       |              |
+|       |              |---Question<Text>
+|       |              |
+|       |              |---Subtitle<Text>
+|       |              |
+|       |              |---Toggle<Switch>
+|       |                    |
+|       |                    |---No<Text>
+|       |                    |
+|       |                    |---Yes<Text>
+|       |
+|       |---TemplateSection <View>
+|            |─── SectionTitle <Text> 
+|            |─── Card1 <TouchableOpacity> 
+|            |─── Card2 <TouchableOpacity> 
+|            |─── Card3 <TouchableOpacity> 
+|            |─── Card4 <TouchableOpacity> 
+|
+|---Footter<View>
+       |
+       |---Setupbutton<TouchableOpacity>
+                     |
+                     |---Submit<Text>
