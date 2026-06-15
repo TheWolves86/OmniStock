@@ -1,0 +1,33 @@
+Ui--<View
+ |
+ |---Header<View>
+ |        |
+ |        |---OmniStock<Text>
+ |        |
+ |        |---Skip<Text>
+ |
+ |---Content<View>
+ |        |
+ |        |----Image<Image>
+ |        |
+ |        |----Title<Text>
+ |        |----Description<Text>
+ |
+ |---Footer<View>
+         |
+         |---Dots<View>
+         |     |
+         |     |--Inactive dot<View>
+         |     |--Active dot<View>
+         |     |--Inactive dot<View>
+         |
+         |---Button<TouchableOpacity>
+                 |
+                 |--Text<Text>
+
+Title: Grow ur Biussness
+Description: Get deep insights into your inventory, stock movements, and business performance from one place.
+Image: /assets/screen1
+Button:Next
+Active Dot:Middle
+Route:/onboarding/screen3
