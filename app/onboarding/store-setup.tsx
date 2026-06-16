@@ -1,14 +1,49 @@
-import { View, Text, Image, TouchableOpacity, FlatList, ScrollView, Switch, StyleSheet, TextInput, Pressable} from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, ScrollView, Switch, StyleSheet, TextInput, Pressable, Alert} from 'react-native'
 import React, { useState} from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from 'expo-router'
 import SwitchSelector from "react-native-switch-selector";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const StoreSetup = () => {
   const router = useRouter()
   const [storeName, setStoreName] = useState("")
   const [haveEmployee, setEmployee] = useState(false)
   const [selectedTemplate, setSelectedTemplate] = useState("")
+  const saveStoreSetup = async () => {
+  try {
+    if (!storeName.trim()) {
+      Alert.alert("Error", "Please enter a store name")
+      return
+    }
+
+    if (!selectedTemplate) {
+      Alert.alert("Error", "Please select a template")
+      return
+    }
+
+    const setupData = {
+      storeName,
+      haveEmployee,
+      selectedTemplate,
+    }
+
+    await AsyncStorage.setItem(
+      "storeSetup",
+      JSON.stringify(setupData)
+    )
+
+    Alert.alert("Success", "Store setup saved!")
+
+    // Later we'll navigate
+    // router.replace('/dashboard')
+
+  } catch (error) {
+    console.log("SAVE ERROR:", error)
+    Alert.alert("Error", String(error))
+  }
+}
   const templates = [
   { id: "kirana", name: "Kirana", icon: "🛒" },
   { id: "clothing", name: "Clothing", icon: "👕" },
@@ -40,7 +75,7 @@ const StoreSetup = () => {
             <Text style={styles.employeeDescription}>Setup access roles for your staff.</Text>
             <View style={{width:200}}>
               <SwitchSelector
-                initial={1}
+                initial={0}
                 onPress={(val: string) => setEmployee(val === "yes")}
                 textColor="#666"
                 selectedColor="#fff"
@@ -74,6 +109,12 @@ const StoreSetup = () => {
             ))}
           </View>
         </View>
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.footerbutton} onPress={saveStoreSetup}>
+            <Text style={styles.footerbuttontext}>Complete Setup</Text>
+          </TouchableOpacity>
+        </View>
+        
       </ScrollView>
     </SafeAreaView>
   )
@@ -183,8 +224,22 @@ selectedTemplateCard: {
   borderColor: '#008080',
   backgroundColor: '#E6F7F7',
 },
-
+footer: {
+  marginTop: 25,
+  padding: 15
+},
+footerbutton: {
+  backgroundColor: "#008080",
+  padding: 15,
+  alignItems: "center",
+  borderRadius: 25
+},
+footerbuttontext: {
+  color: 'white',
+  fontSize: 18,
+  fontWeight: "bold"
+}
 })
-
+//bro i am cooked
 
 export default StoreSetup
