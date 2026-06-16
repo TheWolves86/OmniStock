@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, FlatList, ScrollView, Switch, StyleSheet, TextInput} from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, ScrollView, Switch, StyleSheet, TextInput, Pressable} from 'react-native'
 import React, { useState} from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from 'expo-router'
@@ -8,6 +8,13 @@ const StoreSetup = () => {
   const router = useRouter()
   const [storeName, setStoreName] = useState("")
   const [haveEmployee, setEmployee] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState("")
+  const templates = [
+  { id: "kirana", name: "Kirana", icon: "🛒" },
+  { id: "clothing", name: "Clothing", icon: "👕" },
+  { id: "saree", name: "Saree", icon: "🧵" },
+  { id: "custom", name: "Create Your Own", icon: "⚙️" },
+  ]
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
       <ScrollView>
@@ -47,6 +54,24 @@ const StoreSetup = () => {
                 ]}
               />
             </View>
+          </View>
+          <View style={styles.templateSection}>
+              <Text style={styles.templateTitle}>Choose a Template</Text>
+              {templates.map((template) => (
+              <Pressable
+                key={template.id}
+                onPress={() => setSelectedTemplate(template.id)}
+                style={[
+                  styles.templateCard,
+                  selectedTemplate === template.id &&
+                    styles.selectedTemplateCard
+                ]}
+                
+              >
+                <Text>{template.icon}</Text>
+                <Text>{template.name}</Text>
+              </Pressable>
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -136,6 +161,27 @@ employeeTitle: {
 employeeDescription: {
   color: '#64748B',
   marginBottom: 15,
+},
+templateSection: {
+  marginTop: 30
+},
+templateTitle: {
+  fontSize: 20,
+  fontWeight: 'bold'
+},
+templateCard: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 10,
+  padding: 15,
+  borderWidth: 1,
+  borderColor: '#E5E7EB',
+  borderRadius: 15,
+  marginTop: 10,
+},
+selectedTemplateCard: {
+  borderColor: '#008080',
+  backgroundColor: '#E6F7F7',
 },
 
 })
