@@ -1,0 +1,17 @@
+Add Product Screen
+
+├── Basic Information
+│   ├── Name
+│   ├── SKU
+│   └── Category
+│
+├── Pricing
+│   ├── Purchase Price
+│   ├── Selling Price
+│   └── GST
+│
+├── Inventory
+│   ├── Stock
+│   └── Low Stock Threshold
+│
+└── Save Button

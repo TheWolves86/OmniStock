@@ -110,7 +110,13 @@ const StoreSetup = () => {
           </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.footerbutton} onPress={saveStoreSetup}>
+          <TouchableOpacity
+            style={styles.footerbutton}
+            onPress={async () => {
+              await saveStoreSetup();
+              router.push('/addproduct');
+            }}
+          >
             <Text style={styles.footerbuttontext}>Complete Setup</Text>
           </TouchableOpacity>
         </View>
