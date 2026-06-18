@@ -114,7 +114,7 @@ const StoreSetup = () => {
             style={styles.footerbutton}
             onPress={async () => {
               await saveStoreSetup();
-              router.push('/addproduct');
+              router.replace("/(tabs)");;
             }}
           >
             <Text style={styles.footerbuttontext}>Complete Setup</Text>

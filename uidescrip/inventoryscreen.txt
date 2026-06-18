@@ -1,0 +1,32 @@
+Inventory Screen
+├── Header
+│   ├── Screen Title
+│   ├── Search Button
+│   └── Profile Button
+│
+├── Category Filters
+│   ├── All
+│   ├── Bottles
+│   ├── Food
+│   ├── Electronics
+│   ├── Personal Care
+│   └── Other Categories
+│
+├── Search Section
+│   ├── Search Input
+│   └── Filter Button
+│
+├── Products Section
+│   ├── Product List
+│   │
+│   └── Product Card
+│       ├── Product Image
+│       ├── Product Name
+│       ├── Category
+│       ├── Selling Price
+│       ├── Stock Count
+│       ├── Stock Status
+│       └── More Options Button
+│
+└── Floating Action Button
+    └── Add Product
