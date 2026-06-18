@@ -1,20 +1,35 @@
-import { View } from "react-native";
+import { View, ScrollView} from "react-native";
 import ProductCard from "../../components/productcard";
+import React, {useState, useEffect} from "react"
+import { getProducts } from "../../lib/productService"; 
 
 export default function Inventory() {
+  const [products, setProducts] = useState<any[]>([]);
+  useEffect(() => {
+  const data = getProducts();
+
+  setProducts(data as any[]);
+}, []);
   return (
-    <View style={{ padding: 16 }}>
+    <ScrollView
+    contentContainerStyle={{
+      padding: 16,
+   }}
+  >
+    {products.map((product) => (
       <ProductCard
-        name="Green Bottle"
-        sku="SUNNY PET"
-        category="Bottles"
-        purchasePrice={20}
-        price={60}
-        gstRate={18}
-        stock={121}
-        lowStockThreshold={20}
-        createdAt="2026-06-18"
+        key={product.id}
+        name={product.name}
+        sku={product.sku}
+        category={product.category}
+        purchasePrice={product.purchasePrice}
+        price={product.sellingPrice}
+        gstRate={product.gstRate}
+        stock={product.stock}
+        lowStockThreshold={product.lowStockThreshold}
+        createdAt={product.createdAt}
       />
-    </View>
+    ))}
+  </ScrollView>
   );
 }
