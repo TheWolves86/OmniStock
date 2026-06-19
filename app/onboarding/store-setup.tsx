@@ -41,7 +41,8 @@ const StoreSetup = () => {
 
   } catch (error) {
     console.log("SAVE ERROR:", error)
-    Alert.alert("Error", String(error))
+    // Security Fix: Do not leak internal error details to the user
+    Alert.alert("Error", "An error occurred while saving the store setup. Please try again.")
   }
 }
   const templates = [
@@ -68,7 +69,7 @@ const StoreSetup = () => {
           </View>
           <View style={styles.contentstorename}>
               <Text style={styles.contentstorenametitle}>OWNER / STORE NAME</Text>
-              <TextInput style={styles.contentstorenameinput} value={storeName} placeholder='e.g. Tanya Creations' placeholderTextColor="lightgrey" onChangeText={(newtext) => setStoreName(newtext)} />  
+              <TextInput style={styles.contentstorenameinput} value={storeName} placeholder='e.g. Tanya Creations' placeholderTextColor="lightgrey" onChangeText={(newtext) => setStoreName(newtext)} maxLength={100} />
           </View>
           <View style={styles.employeesection}>
             <Text style={styles.employeeTitle}>Do you have employees?</Text>
