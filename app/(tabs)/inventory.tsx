@@ -4,14 +4,18 @@ import React, {useState, useEffect} from "react"
 import { getProducts } from "../../lib/productService";
 import { useRouter } from 'expo-router'
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getCategories } from "../../lib/productService";
 
 export default function Inventory() {
   const router = useRouter();
   const [products, setProducts] = useState<any[]>([]);
+  const [ categories, setCategories ] = useState<any[]>([]);
   useEffect(() => {
     const data = getProducts();
-
     setProducts(data as any[]);
+
+    const categoryData = getCategories();
+    setCategories(categoryData as any[]);
   }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -32,6 +36,17 @@ export default function Inventory() {
         </TouchableOpacity>
         <TextInput placeholder="Search products..." style={{flex: 1}}></TextInput>
       </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 10 }}>
+        <TouchableOpacity style={styles.activeChip}>
+          <Text style={styles.activeChipText}>All</Text>
+        </TouchableOpacity>
+
+        {categories.map((category, index) => (
+          <TouchableOpacity key={index} style={styles.chip}>
+            <Text style={styles.chipText}>{category.category}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
       <View style={styles.productCardList}>
         {products.map((product) => (
           <ProductCard
@@ -99,7 +114,27 @@ const styles = StyleSheet.create({
   searchBarSearchIcon: {
     fontSize: 20
   },
-  FilterIcon: {
-
+  chip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: "#f2f2f2",
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  chipText: {
+    fontWeight: "500"
+  },
+  activeChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: "#008080",
+    borderRadius: 20,
+    marginRight: 10,
+    marginLeft: 16
+  },
+  activeChipText: {
+    color: 'white',
+    fontWeight: "600"
   }
 })
+//
