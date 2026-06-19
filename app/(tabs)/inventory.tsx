@@ -10,6 +10,7 @@ export default function Inventory() {
   const router = useRouter();
   const [products, setProducts] = useState<any[]>([]);
   const [ categories, setCategories ] = useState<any[]>([]);
+  const [ selectedCategory, setSelectedCategory ] = useState("All")
   useEffect(() => {
     const data = getProducts();
     setProducts(data as any[]);
@@ -17,6 +18,8 @@ export default function Inventory() {
     const categoryData = getCategories();
     setCategories(categoryData as any[]);
   }, []);
+
+  const filteredProducts = selectedCategory === "All" ? products : products.filter((product) => product.category === selectedCategory);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView
@@ -37,18 +40,18 @@ export default function Inventory() {
         <TextInput placeholder="Search products..." style={{flex: 1}}></TextInput>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 10 }}>
-        <TouchableOpacity style={styles.activeChip}>
-          <Text style={styles.activeChipText}>All</Text>
+        <TouchableOpacity style={selectedCategory === "All" ? styles.activeChip : styles.chip} onPress={() => setSelectedCategory("All")}>
+          <Text style={selectedCategory === "All" ? styles.activeChipText : styles.chipText}>All</Text>
         </TouchableOpacity>
 
         {categories.map((category, index) => (
-          <TouchableOpacity key={index} style={styles.chip}>
-            <Text style={styles.chipText}>{category.category}</Text>
+          <TouchableOpacity key={index} style={selectedCategory === category.category ? styles.activeChip : styles.chip} onPress={() => setSelectedCategory(category.category)}>
+            <Text style={selectedCategory === category.category ? styles.activeChipText : styles.chipText}>{category.category}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
       <View style={styles.productCardList}>
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
             name={product.name}
