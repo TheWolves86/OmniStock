@@ -45,3 +45,12 @@ export const getProducts = () => {
     `SELECT * FROM products`
   );
 };
+
+export const getCategories = () => {
+    return db.getAllSync(`
+        SELECT DISTINCT category
+        FROM products
+        WHERE category IS NOT NULL
+        AND category != ''
+        `);
+};
