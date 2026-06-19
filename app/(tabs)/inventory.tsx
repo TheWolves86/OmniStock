@@ -5,12 +5,14 @@ import { getProducts } from "../../lib/productService";
 import { useRouter } from 'expo-router'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getCategories } from "../../lib/productService";
+import { SearchBar } from "react-native-screens";
 
 export default function Inventory() {
   const router = useRouter();
   const [products, setProducts] = useState<any[]>([]);
   const [ categories, setCategories ] = useState<any[]>([]);
   const [ selectedCategory, setSelectedCategory ] = useState("All")
+  const [ searchQuery, setSearchQuery ] = useState("")
   useEffect(() => {
     const data = getProducts();
     setProducts(data as any[]);
@@ -19,7 +21,13 @@ export default function Inventory() {
     setCategories(categoryData as any[]);
   }, []);
 
-  const filteredProducts = selectedCategory === "All" ? products : products.filter((product) => product.category === selectedCategory);
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  })
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView
@@ -37,7 +45,7 @@ export default function Inventory() {
         <TouchableOpacity style={{}}>
           <Text style={styles.searchBarSearchIcon}>🔍</Text>
         </TouchableOpacity>
-        <TextInput placeholder="Search products..." style={{flex: 1}}></TextInput>
+        <TextInput placeholder="Search products..." style={{flex: 1}} value={searchQuery} onChangeText={setSearchQuery}></TextInput>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 10 }}>
         <TouchableOpacity style={selectedCategory === "All" ? styles.activeChip : styles.chip} onPress={() => setSelectedCategory("All")}>
