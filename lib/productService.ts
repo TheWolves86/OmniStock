@@ -54,3 +54,58 @@ export const getCategories = () => {
         AND category != ''
         `);
 };
+
+export const getProductById = (id: number) => {
+    return db.getFirstSync(
+        `SELECT * FROM products WHERE id = ?`,
+        [id]
+    );
+};
+
+export const updateProduct = (
+  id: number,
+  product: {
+    name: string;
+    sku: string;
+    category: string;
+    purchasePrice: number;
+    sellingPrice: number;
+    gstRate: number;
+    stock: number;
+    lowStockThreshold: number;
+  }
+) => {
+  db.runSync(
+    `
+    UPDATE products
+    SET
+      name = ?,
+      sku = ?,
+      category = ?,
+      purchasePrice = ?,
+      sellingPrice = ?,
+      gstRate = ?,
+      stock = ?,
+      lowStockThreshold = ?
+    WHERE id = ?
+    `,
+    [
+      product.name,
+      product.sku,
+      product.category,
+      product.purchasePrice,
+      product.sellingPrice,
+      product.gstRate,
+      product.stock,
+      product.lowStockThreshold,
+      id,
+    ]
+  );
+};
+
+export const deleteProduct = (id: number) => {
+  db.runSync(
+    `DELETE FROM products WHERE id = ?`,
+    [id]
+  );
+};

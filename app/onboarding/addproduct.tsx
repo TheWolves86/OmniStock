@@ -1,11 +1,17 @@
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native'
 import React, { useState } from 'react'
-import { useRouter } from 'expo-router'
+import { useRouter, useLocalSearchParams} from 'expo-router'
 import { saveProduct } from '../../lib/productService';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getProductById, updateProduct } from '../../lib/productService';
+import { useEffect } from 'react';
+
 
 const AddProduct = () => {
     const router = useRouter()
+    const { id } = useLocalSearchParams();
+
+    console.log("Product ID:", id);
     const [productName, setProductName] = useState("")
     const [sku, setSku] = useState("")
     const [category, setCategory] = useState("")
@@ -14,6 +20,25 @@ const AddProduct = () => {
     const [gstRate, setGstRate] = useState("")
     const [currentStock, setCurrentStock] = useState("0")
     const [lowStockThreshold, setLowStockThreshold] = useState("10")
+
+    useEffect(() => {
+        if (!id) return;
+
+        const product: any = getProductById(Number(id));
+
+        if (!product) return;
+
+        setProductName(product.name);
+        setSku(product.sku);
+        setCategory(product.category);
+        setPurchasePrice(product.purchasePrice.toString());
+        setSellingPrice(product.sellingPrice.toString());
+        setGstRate(product.gstRate.toString());
+        setCurrentStock(product.stock.toString());
+        setLowStockThreshold(
+            product.lowStockThreshold.toString()
+  );
+}, [id]);
 
     const handleSave = () => {
         if (!productName.trim()) {
@@ -33,23 +58,37 @@ const AddProduct = () => {
         }
 
         console.log("Product Ready To Save");
+        if (id) {
+            updateProduct(Number(id), {
+            name: productName.trim(),
+            sku: sku.trim(),
+            category: category.trim(),
+            purchasePrice: Number(purchasePrice),
+            sellingPrice: Number(sellingPrice),
+            gstRate: Number(gstRate),
+            stock: Number(currentStock),
+            lowStockThreshold: Number(lowStockThreshold),
+        });
+
+        Alert.alert("Success", "Product Updated");
+        } else {
         saveProduct({
             name: productName.trim(),
             sku: sku.trim(),
             category: category.trim(),
-            purchasePrice: parseFloat(purchasePrice) || 0,
-            sellingPrice: parseFloat(sellingPrice) || 0,
-            gstRate: parseFloat(gstRate) || 0,
-            stock: parseInt(currentStock, 10) || 0,
-            lowStockThreshold: parseInt(lowStockThreshold, 10) || 10,
+            purchasePrice: Number(purchasePrice),
+            sellingPrice: Number(sellingPrice),
+            gstRate: Number(gstRate),
+            stock: Number(currentStock),
+            lowStockThreshold: Number(lowStockThreshold),
             createdAt: new Date().toISOString(),
-        })
+        });
 
-        Alert.alert(
-            "Success",
-            "Product data collected successfully."
-        );
-        };
+        Alert.alert("Success", "Product Added");
+        }
+
+        router.back();
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -205,7 +244,7 @@ const AddProduct = () => {
                     {/* Action Buttons */}
                     <View style={styles.actionContainer}>
                         <TouchableOpacity style={styles.saveButton} onPress={async () => { await handleSave(); router.push('/inventory'); }}>
-                            <Text style={styles.saveButtonText}>Save Product</Text>
+                            <Text style={styles.saveButtonText}>{id ? "Update Product" : "Save Product"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cancelButton} onPress={() => router.back()}>
                             <Text style={styles.cancelButtonText}>Cancel</Text>

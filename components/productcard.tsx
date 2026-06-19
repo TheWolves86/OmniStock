@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { Modal, Pressable, StyleSheet, Text, View} from 'react-native'
+import { useRouter, useLocalSearchParams} from 'expo-router'
+import { Modal, Pressable, StyleSheet, Text, View,TouchableOpacity} from 'react-native'
+import { deleteProduct } from "../lib/productService";
 
 type ProductCardProps = {
+    id: number;
     name: string;
     sku: string;
     category: string;
@@ -14,6 +17,7 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({
+    id,
     name,
     sku,
     category,
@@ -25,7 +29,7 @@ export default function ProductCard({
     createdAt,
 }: ProductCardProps) {
     const [modalVisisble, setModalVisible] = useState(false);
-
+    const router = useRouter();
     return (
         <>
            <Pressable
@@ -100,7 +104,15 @@ export default function ProductCard({
                         <Pressable style={styles.closeButton} onPress={() => setModalVisible(false)}>
                             <Text style={styles.closeText}>Close</Text>
                         </Pressable>
+                        <TouchableOpacity style={{marginTop: 20,backgroundColor: "#008080",padding: 12,borderRadius: 10}} onPress={() => {router.push(`/onboarding/addproduct?id=${id}`)}}>
+                        <Text style={{textAlign:'center',fontWeight: "600", color: "white"}}>Edit</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={{marginTop: 20,backgroundColor: "#d5ba0f",padding: 12,borderRadius: 10}} onPress={() => {deleteProduct(id);setModalVisible(false);}}>
+                            <Text style={{textAlign:'center',fontWeight: "600", color: "white"}}>Delete</Text>
+                        </TouchableOpacity>
                     </View>
+                    
                 </View>
             </Modal>
         </>

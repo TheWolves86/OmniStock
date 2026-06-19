@@ -1,8 +1,8 @@
 import { View, ScrollView, Pressable, Text, StyleSheet, TouchableOpacity, TextInput} from "react-native";
 import ProductCard from "../../components/productcard";
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useCallback} from "react"
 import { getProducts } from "../../lib/productService";
-import { useRouter } from 'expo-router'
+import { useRouter, useFocusEffect} from 'expo-router'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getCategories } from "../../lib/productService";
 import { SearchBar } from "react-native-screens";
@@ -13,14 +13,19 @@ export default function Inventory() {
   const [ categories, setCategories ] = useState<any[]>([]);
   const [ selectedCategory, setSelectedCategory ] = useState("All")
   const [ searchQuery, setSearchQuery ] = useState("")
-  useEffect(() => {
+  const loadProducts = () => {
     const data = getProducts();
     setProducts(data as any[]);
 
     const categoryData = getCategories();
     setCategories(categoryData as any[]);
-  }, []);
+  };
 
+  useFocusEffect(
+    useCallback(() => {
+      loadProducts();
+    }, [])
+  );
   const filteredProducts = products.filter((product) => {
     const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
 
@@ -62,6 +67,7 @@ export default function Inventory() {
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             name={product.name}
             sku={product.sku}
             category={product.category}
