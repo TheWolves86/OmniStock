@@ -1,0 +1,43 @@
+Billing Screen
+|
+|---Header
+|     |--Back button
+|     |--Screen Title
+|     |--Profile button
+|
+|---Product Search
+|         |--Search Input
+|         |--Qr scanner button
+|
+|---Cart Section
+|       |--BillItemCard
+|       |       |-Product Icon/Image
+|       |       |-Product Name
+|       |       |-SKU
+|       |       |-Unit Price
+|       |       |-Quantity Controls
+|       |       |           |-Minus Button
+|       |       |           |-Quantity Button
+|       |       |           |-Plus Button
+|       |       |-Item Total
+|       |       |-Delete Button
+|       |
+|       |--Empty State
+|           |-"Search products to add items"
+|
+|---Payment Method
+|      |--Cash
+|      |--Upi
+|      |--Card
+|
+|---Bill Summary
+|    |--Subtotal
+|    |--CGST
+|    |--SGST
+|    |--Grand Total
+|
+|---Actions
+      |--Hold Bill
+      |--Generate Invoice
+    
+
