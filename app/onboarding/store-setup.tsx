@@ -40,8 +40,8 @@ const StoreSetup = () => {
     // router.replace('/dashboard')
 
   } catch (error) {
-    console.log("SAVE ERROR:", error)
-    Alert.alert("Error", String(error))
+    console.error("SAVE ERROR:", error)
+    Alert.alert("Error", "Failed to save store setup")
   }
 }
   const templates = [

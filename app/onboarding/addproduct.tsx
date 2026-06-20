@@ -49,6 +49,14 @@ const AddProduct = () => {
             return;
         }
 
+        if (productName.trim().length > 100) {
+            Alert.alert(
+            "Validation Error",
+            "Product name cannot exceed 100 characters"
+            );
+            return;
+        }
+
         if (!sellingPrice.trim()) {
             Alert.alert(
             "Validation Error",
@@ -58,36 +66,41 @@ const AddProduct = () => {
         }
 
         console.log("Product Ready To Save");
-        if (id) {
-            updateProduct(Number(id), {
-            name: productName.trim(),
-            sku: sku.trim(),
-            category: category.trim(),
-            purchasePrice: Number(purchasePrice),
-            sellingPrice: Number(sellingPrice),
-            gstRate: Number(gstRate),
-            stock: Number(currentStock),
-            lowStockThreshold: Number(lowStockThreshold),
-        });
+        try {
+            if (id) {
+                updateProduct(Number(id), {
+                name: productName.trim(),
+                sku: sku.trim(),
+                category: category.trim(),
+                purchasePrice: Number(purchasePrice),
+                sellingPrice: Number(sellingPrice),
+                gstRate: Number(gstRate),
+                stock: Number(currentStock),
+                lowStockThreshold: Number(lowStockThreshold),
+            });
 
-        Alert.alert("Success", "Product Updated");
-        } else {
-        saveProduct({
-            name: productName.trim(),
-            sku: sku.trim(),
-            category: category.trim(),
-            purchasePrice: Number(purchasePrice),
-            sellingPrice: Number(sellingPrice),
-            gstRate: Number(gstRate),
-            stock: Number(currentStock),
-            lowStockThreshold: Number(lowStockThreshold),
-            createdAt: new Date().toISOString(),
-        });
+            Alert.alert("Success", "Product Updated");
+            } else {
+            saveProduct({
+                name: productName.trim(),
+                sku: sku.trim(),
+                category: category.trim(),
+                purchasePrice: Number(purchasePrice),
+                sellingPrice: Number(sellingPrice),
+                gstRate: Number(gstRate),
+                stock: Number(currentStock),
+                lowStockThreshold: Number(lowStockThreshold),
+                createdAt: new Date().toISOString(),
+            });
 
-        Alert.alert("Success", "Product Added");
+            Alert.alert("Success", "Product Added");
+            }
+
+            router.back();
+        } catch (error) {
+            console.error("Database Error:", error);
+            Alert.alert("Error", "Failed to save product");
         }
-
-        router.back();
     }
 
     return (
