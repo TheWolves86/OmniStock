@@ -7,27 +7,8 @@ import { getProducts } from "../../lib/productService"
 
 const billing = () => {
   const router = useRouter();
-  const cartItems = [
-  {
-    id: 1,
-    name: "Premium Hand Sanitizer",
-    sku: "SAN-001",
-    price: 120,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Coffee Beans",
-    sku: "COF-001",
-    price: 350,
-    quantity: 1,
-  },
-  ];
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  
+  const [ cartItems, setCartItems ] = useState<any[]>([]);
 
   const [ products, setProducts ] = useState<any[]>([]);
   const [ searchQuery, setSearchQuery ] = useState("");
@@ -42,11 +23,20 @@ const billing = () => {
   (product.name || "")
     .toLowerCase()
     .includes(searchQuery.toLowerCase())
-  );//
+  );
 
-  const cgst = subtotal * 0.09;
-  const sgst = subtotal * 0.09;
-  const grandTotal = subtotal + cgst + sgst;
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  const gstTotal = cartItems.reduce(
+  (sum, item) =>
+    sum + ((item.price * item.quantity) * item.gstRate) / 100,
+  0
+  );
+  const grandTotal = subtotal + gstTotal;
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -62,12 +52,64 @@ const billing = () => {
         <Text style={{ marginRight: 10 }}>🔍</Text>
         <TextInput placeholder='Search by product name...' style={{ flex: 1}} value={searchQuery} onChangeText={setSearchQuery}/>
       </View>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{padding: 20}}>
+      {searchQuery.length > 0 && (
+        <ScrollView
+          style={{
+            maxHeight: 200,
+            marginHorizontal: 16,
+            borderWidth: 1,
+            borderColor: "#E5E7EB",
+            borderRadius: 12,
+            backgroundColor: "white",
+          }}
+        >
+          {filteredProducts.map((product) => (
+            <TouchableOpacity
+              key={product.id}
+              style={{
+                padding: 12,
+                borderBottomWidth: 1,
+                borderColor: "#E5E7EB",
+              }}
+              onPress={() => {
+                setCartItems((prev) => [
+                  ...prev,
+                  {
+                    id: product.id,
+                    name: product.name,
+                    sku: product.sku,
+                    price: product.sellingPrice,
+                    quantity: 1,
+                    gstRate: product.gstRate
+                  },
+                ]);
+
+                setSearchQuery("");
+              }}
+            >
+              <Text style={{ fontWeight: "600" }}>
+                {product.name}
+              </Text>
+
+              <Text style={{ color: "#6B7280" }}>
+                ₹{product.sellingPrice}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
+      
+      <ScrollView style={{ flex: 1 }}>
         {cartItems.map((item) => (
-          <BillItemCard key={item.id} name={item.name} sku={item.sku} price={item.price} quantity={item.quantity} />
+          <BillItemCard
+            key={item.id}
+            name={item.name}
+            sku={item.sku}
+            price={item.price}
+            quantity={item.quantity}
+          />
         ))}
       </ScrollView>
-      
 
       <View style={styles.bottomContainer}>
         <View style={styles.summaryLeft}>
@@ -79,18 +121,12 @@ const billing = () => {
           </View>
 
           <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>CGST (9%)</Text>
+            <Text style={styles.summaryLabel}>GST (9%)</Text>
             <Text style={styles.summaryValue}>
-              ₹{cgst.toFixed(2)}
+              ₹{gstTotal.toFixed(2)}
             </Text>
           </View>
 
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>SGST (9%)</Text>
-            <Text style={styles.summaryValue}>
-              ₹{sgst.toFixed(2)}
-            </Text>
-          </View>
         </View>
 
         <View style={styles.summaryDivider} />
@@ -245,4 +281,4 @@ generateButtonText: {
   fontWeight: "700",
   fontSize: 16,
 },
-})
+})//Bro
