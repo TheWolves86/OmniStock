@@ -19,6 +19,21 @@ const billing = () => {
     setProducts(data as any[]);
   }, []);
 
+  const increaseQuantity = (id: number) => {
+    setCartItems((prev) => prev.map((item) => item.id === id ? {...item, quantity: item.quantity + 1} : item))
+  }
+  const decreaseQuantity = (id: number) => {
+  setCartItems((prev) =>
+    prev
+      .map((item) =>
+        item.id === id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0)
+    );
+  };
+
   const filteredProducts = products.filter((product) =>
   (product.name || "")
     .toLowerCase()
@@ -103,10 +118,13 @@ const billing = () => {
         {cartItems.map((item) => (
           <BillItemCard
             key={item.id}
+            id={item.id}
             name={item.name}
             sku={item.sku}
             price={item.price}
             quantity={item.quantity}
+            onIncrease={increaseQuantity}
+            onDecrease={decreaseQuantity}
           />
         ))}
       </ScrollView>
@@ -121,7 +139,7 @@ const billing = () => {
           </View>
 
           <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>GST (9%)</Text>
+            <Text style={styles.summaryLabel}>GST</Text>
             <Text style={styles.summaryValue}>
               ₹{gstTotal.toFixed(2)}
             </Text>
@@ -281,4 +299,4 @@ generateButtonText: {
   fontWeight: "700",
   fontSize: 16,
 },
-})//Bro
+})//

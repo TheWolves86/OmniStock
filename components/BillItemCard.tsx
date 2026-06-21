@@ -2,17 +2,23 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 
 type Props = {
+    id: number;
     name: string;
     sku: string;
     price: number;
     quantity: number;
+    onIncrease: (id: number) => void;
+    onDecrease: (id: number) => void
 };
-
+//
 export default function BillItemCard({
+    id,
     name,
     sku,
     price,
-    quantity
+    quantity,
+    onIncrease,
+    onDecrease
 }: Props) {
     return (
         <View style={styles.card}>
@@ -26,13 +32,13 @@ export default function BillItemCard({
                 <Text style={styles.price}>₹{price}</Text>
 
                 <View style={styles.quantityrow}>
-                    <TouchableOpacity style={styles.qtyButton}>
+                    <TouchableOpacity style={styles.qtyButton} onPress={() => onDecrease(id)}>
                         <Text>-</Text>
                     </TouchableOpacity>
 
                     <Text>{quantity}</Text>
 
-                    <TouchableOpacity style={styles.qtyButton}>
+                    <TouchableOpacity style={styles.qtyButton} onPress={() => onIncrease(id)}>
                         <Text>+</Text>
                     </TouchableOpacity>
                 </View>
