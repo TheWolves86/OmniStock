@@ -9,7 +9,7 @@ const billing = () => {
   const router = useRouter();
   
   const [ cartItems, setCartItems ] = useState<any[]>([]);
-
+  const [ paymentMethod, setPaymentMethod] = useState("Cash")
   const [ products, setProducts ] = useState<any[]>([]);
   const [ searchQuery, setSearchQuery ] = useState("");
 
@@ -129,6 +129,38 @@ const billing = () => {
         ))}
       </ScrollView>
 
+      <View style={styles.paymentContainer}>
+        <TouchableOpacity
+          style={[
+            styles.paymentButton,
+            paymentMethod === "Cash" && styles.paymentButtonActive,
+          ]}
+          onPress={() => setPaymentMethod("Cash")}
+        >
+          <Text>Cash</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.paymentButton,
+            paymentMethod === "Card" && styles.paymentButtonActive,
+          ]}
+          onPress={() => setPaymentMethod("Card")}
+        >
+          <Text>Card</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.paymentButton,
+            paymentMethod === "UPI" && styles.paymentButtonActive,
+          ]}
+          onPress={() => setPaymentMethod("UPI")}
+        >
+          <Text>UPI</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.bottomContainer}>
         <View style={styles.summaryLeft}>
           <View style={styles.summaryRow}>
@@ -212,91 +244,109 @@ const styles = StyleSheet.create({
     paddingVertical: 12
   },
 
-bottomContainer: {
-  flexDirection: "row",
-  padding: 16,
-  borderTopWidth: 1,
-  borderColor: "#E5E7EB",
-  alignItems: "center",
-},
+  bottomContainer: {
+    flexDirection: "row",
+    padding: 16,
+    borderTopWidth: 1,
+    borderColor: "#E5E7EB",
+    alignItems: "center",
+  },
 
-summaryLeft: {
-  flex: 1,
-},
+  summaryLeft: {
+    flex: 1,
+  },
 
-summaryDivider: {
-  width: 1,
-  height: 80,
-  backgroundColor: "#E5E7EB",
-  marginHorizontal: 16,
-},
+  summaryDivider: {
+    width: 1,
+    height: 80,
+    backgroundColor: "#E5E7EB",
+    marginHorizontal: 16,
+  },
 
-summaryRight: {
-  alignItems: "center",
-},
+  summaryRight: {
+    alignItems: "center",
+  },
 
-grandTotalLabel: {
-  fontSize: 12,
-  color: "#6B7280",
-  letterSpacing: 1,
-},
+  grandTotalLabel: {
+    fontSize: 12,
+    color: "#6B7280",
+    letterSpacing: 1,
+  },
 
-grandTotalValue: {
-  fontSize: 28,
-  fontWeight: "700",
-  color: "#008080",
-  marginTop: 8,
-},
+  grandTotalValue: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#008080",
+    marginTop: 8,
+  },
 
-actionContainer: {
-  flexDirection: "row",
-  paddingHorizontal: 16,
-  paddingBottom: 16,
-},
+  actionContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
 
-holdButton: {
-  flex: 1,
-  borderWidth: 1,
-  borderColor: "#D1D5DB",
-  borderRadius: 16,
-  justifyContent: "center",
-  alignItems: "center",
-  paddingVertical: 16,
-  marginRight: 12,
-},
+  holdButton: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 16,
+    marginRight: 12,
+  },
 
-holdButtonText: {
-  fontWeight: "600",
-},
+  holdButtonText: {
+    fontWeight: "600",
+  },
 
-generateButton: {
-  flex: 2,
-  backgroundColor: "#008080",
-  borderRadius: 16,
-  justifyContent: "center",
-  alignItems: "center",
-  paddingVertical: 16,
-},
-summaryRow: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  marginBottom: 8,
-},
+  generateButton: {
+    flex: 2,
+    backgroundColor: "#008080",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 16,
+  },
+  summaryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8,
+  },
 
-summaryLabel: {
-  fontSize: 14,
-  color: "#374151",
-},
+  summaryLabel: {
+    fontSize: 14,
+    color: "#374151",
+  },
 
-summaryValue: {
-  fontSize: 14,
-  color: "#111827",
-},
+  summaryValue: {
+    fontSize: 14,
+    color: "#111827",
+  },
 
-generateButtonText: {
-  color: "white",
-  textAlign: "center",
-  fontWeight: "700",
-  fontSize: 16,
-},
+  generateButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  paymentContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 16,
+    marginBottom: 12
+  },
+  paymentButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+    borderRadius: 12,
+    alignItems: "center",
+    marginHorizontal: 4,
+  },
+  paymentButtonActive: {
+    backgroundColor: "#008080"
+  }
+
 })//

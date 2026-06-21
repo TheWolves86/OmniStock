@@ -17,6 +17,31 @@ export const initDatabase = () => {
       createdAt TEXT
     );
   `);
+
+  db.execSync(`
+    CREATE TABLE IF NOT EXISTS bills (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      invoiceNumber TEXT,
+      paymentMethod TEXT,
+      subtotal REAL,
+      gstTotal REAL,
+      grandTotal REAL,
+      createdAt TEXT
+    );
+  `);
+
+  db.execSync(`
+    CREATE TABLE IF NOT EXISTS bill_items (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      billId INTEGER,
+      productId INTEGER,
+      productName TEXT,
+      price REAL,
+      quantity INTEGER,
+      gstRate REAL,
+      lineTotal REAL
+    );
+  `);
 }
 
 export default db;
