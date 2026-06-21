@@ -4,24 +4,25 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useRouter } from "expo-router"
 import BillItemCard from "../../components/BillItemCard"
 import { getProducts } from "../../lib/productService"
+import { saveBill } from "../../lib/billService"
 
 const billing = () => {
   const router = useRouter();
-  
   const [ cartItems, setCartItems ] = useState<any[]>([]);
   const [ paymentMethod, setPaymentMethod] = useState("Cash")
   const [ products, setProducts ] = useState<any[]>([]);
   const [ searchQuery, setSearchQuery ] = useState("");
-
 
   useEffect(() => {
     const data = getProducts();
     setProducts(data as any[]);
   }, []);
 
+
   const increaseQuantity = (id: number) => {
     setCartItems((prev) => prev.map((item) => item.id === id ? {...item, quantity: item.quantity + 1} : item))
   }
+
   const decreaseQuantity = (id: number) => {
   setCartItems((prev) =>
     prev
@@ -51,6 +52,28 @@ const billing = () => {
   0
   );
   const grandTotal = subtotal + gstTotal;
+
+  const handleGenerateInvoice = () => {
+    if (cartItems.length === 0) {
+      return;
+    }
+
+    saveBill(
+      {
+        invoiceNumber: `INV-${Date.now()}`,
+        paymentMethod,
+        subtotal,
+        gstTotal,
+        grandTotal,
+        createdAt: new Date().toISOString()
+      },
+      cartItems
+    );
+
+    setCartItems([]);
+
+    alert("Invoice Saved")
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -199,7 +222,7 @@ const billing = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.generateButton}>
+        <TouchableOpacity style={styles.generateButton} onPress={handleGenerateInvoice}>
           <Text style={styles.generateButtonText}>
             Generate Invoice
           </Text>
