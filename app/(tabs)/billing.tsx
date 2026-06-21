@@ -5,6 +5,7 @@ import { useRouter } from "expo-router"
 import BillItemCard from "../../components/BillItemCard"
 import { getProducts } from "../../lib/productService"
 import { saveBill } from "../../lib/billService"
+import { reduceProductStock } from '../../lib/productService'
 
 const billing = () => {
   const router = useRouter();
@@ -69,6 +70,13 @@ const billing = () => {
       },
       cartItems
     );
+
+    cartItems.forEach((item) => {
+      reduceProductStock(
+        item.id,
+        item.quantity
+      );
+    });
 
     setCartItems([]);
 

@@ -109,3 +109,18 @@ export const deleteProduct = (id: number) => {
     [id]
   );
 };
+
+export const reduceProductStock= (
+  productId: number,
+  quantitySold: number
+) => {
+  db.runSync(
+    `
+    UPDATE products
+    SET stock = stock - ?
+    WHERE id = ?
+    `,
+    [quantitySold, productId]
+  );
+};
+
