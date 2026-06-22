@@ -65,6 +65,27 @@ const AddProduct = () => {
             return;
         }
 
+        // Sentinel Security Fix: Prevent negative values & invalid numbers
+        const pPrice = Number(purchasePrice);
+        const sPrice = Number(sellingPrice);
+        const gRate = Number(gstRate);
+        const cStock = Number(currentStock);
+        const lStock = Number(lowStockThreshold);
+
+        if (
+            isNaN(pPrice) || pPrice < 0 ||
+            isNaN(sPrice) || sPrice < 0 ||
+            isNaN(gRate) || gRate < 0 ||
+            isNaN(cStock) || cStock < 0 ||
+            isNaN(lStock) || lStock < 0
+        ) {
+            Alert.alert(
+                "Validation Error",
+                "Pricing, tax, and stock values must be valid non-negative numbers."
+            );
+            return;
+        }
+
         console.log("Product Ready To Save");
         try {
             if (id) {
