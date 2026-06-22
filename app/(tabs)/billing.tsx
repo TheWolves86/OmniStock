@@ -18,7 +18,7 @@ const Billing = () => {
         <TouchableOpacity onPress={() => router.back()}>
           <Text style={styles.icon}>←</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>New Bill</Text>
+        <Text style={styles.title}>Billing History</Text>
         <TouchableOpacity>
           <Text style={styles.icon}>👤</Text>
         </TouchableOpacity>

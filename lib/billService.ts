@@ -7,7 +7,10 @@ export const saveBill = (
         subtotal: number;
         gstTotal: number;
         grandTotal: number;
-        createdAt: string
+        createdAt: string;
+        customerName: string;
+        customerPhone: string;
+        customerAddress: string;
     },
     items: any[]
 ) => {
@@ -15,16 +18,16 @@ export const saveBill = (
         `
         INSERT INTO bills (
             invoiceNumber,
-            customerName,
-            customerPhone,
-            customerAddress,
             paymentMethod,
             subtotal,
             gstTotal,
             grandTotal,
-            createdAt
+            createdAt,
+            customerName,
+            customerPhone,
+            customerAddress
         )
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `,
         [
             bill.invoiceNumber,
@@ -32,7 +35,10 @@ export const saveBill = (
             bill.subtotal,
             bill.gstTotal,
             bill.grandTotal,
-            bill.createdAt
+            bill.createdAt,
+            bill.customerName,
+            bill.customerPhone,
+            bill.customerAddress
         ]
     );
 
@@ -73,4 +79,4 @@ export const getBills = () => {
         ORDER BY id DESC
         `
     )
-}//my name is Isham Gadia
+}

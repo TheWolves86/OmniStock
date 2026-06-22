@@ -91,7 +91,7 @@ const billing = () => {
     alert("Invoice Saved")
   };
 
-  return (//hi i am
+  return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
@@ -306,30 +306,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#E5E7EB",
     marginHorizontal: 16,
   },
-
   summaryRight: {
     alignItems: "center",
   },
-
   grandTotalLabel: {
     fontSize: 12,
     color: "#6B7280",
     letterSpacing: 1,
   },
-
   grandTotalValue: {
     fontSize: 28,
     fontWeight: "700",
     color: "#008080",
     marginTop: 8,
   },
-
   actionContainer: {
     flexDirection: "row",
     paddingHorizontal: 16,
     paddingBottom: 16,
   },
-
   holdButton: {
     flex: 1,
     borderWidth: 1,
@@ -340,11 +335,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     marginRight: 12,
   },
-
   holdButtonText: {
     fontWeight: "600",
   },
-
   generateButton: {
     flex: 2,
     backgroundColor: "#008080",
@@ -358,17 +351,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 8,
   },
-
   summaryLabel: {
     fontSize: 14,
     color: "#374151",
   },
-
   summaryValue: {
     fontSize: 14,
     color: "#111827",
   },
-
   generateButtonText: {
     color: "white",
     textAlign: "center",
@@ -392,11 +382,9 @@ const styles = StyleSheet.create({
   paymentButtonActive: {
     backgroundColor: "#008080"
   },
-
   customerContainer: {
     paddingHorizontal: 16,
   },
-
   customerInput: {
     borderWidth: 1,
     borderColor: "#E5E7EB",
@@ -405,5 +393,4 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 10
   }
-
 })
