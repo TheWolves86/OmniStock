@@ -1,4 +1,0 @@
-## 2024-05-24 - Missing Input Validation on Financial Fields
-**Vulnerability:** The application was not verifying whether React Native TextInputs representing numbers for price, tax, and stock were valid non-negative numbers before saving them to the local SQLite database. By inputting negative values (e.g. negative selling price), it might be possible to reduce a bill's grand total leading to business logic manipulation.
-**Learning:** React Native string inputs require explicit and strict boundary validation when parsing to numbers, especially for financial and inventory data, because the underlying SQLite schema does not have constraints to natively enforce `>= 0` or prevent `NaN`.
-**Prevention:** Always validate parsed numeric inputs using `isNaN()` and ensure they meet expected boundaries (e.g., `>= 0`) before persisting to storage or using in calculations.

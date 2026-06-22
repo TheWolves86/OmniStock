@@ -15,6 +15,9 @@ export const saveBill = (
         `
         INSERT INTO bills (
             invoiceNumber,
+            customerName,
+            customerPhone,
+            customerAddress,
             paymentMethod,
             subtotal,
             gstTotal,
@@ -61,3 +64,13 @@ export const saveBill = (
         );
     });
 };
+
+export const getBills = () => {
+    return db.getAllSync(
+        `
+        SELECT *
+        FROM bills
+        ORDER BY id DESC
+        `
+    )
+}//my name is Isham Gadia

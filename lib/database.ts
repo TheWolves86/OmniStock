@@ -26,7 +26,10 @@ export const initDatabase = () => {
       subtotal REAL,
       gstTotal REAL,
       grandTotal REAL,
-      createdAt TEXT
+      createdAt TEXT,
+      customerName TEXT,
+      customerPhone TEXT,
+      customerAddress TEXT
     );
   `);
 
