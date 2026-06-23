@@ -34,6 +34,11 @@ const StoreSetup = () => {
       JSON.stringify(setupData)
     )
 
+    await AsyncStorage.setItem(
+      "storeSetupComplete",
+      "true"
+    )
+
     Alert.alert("Success", "Store setup saved!")
 
     // Later we'll navigate

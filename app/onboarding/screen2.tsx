@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screen2 = () => {
   const router = useRouter()
@@ -10,7 +11,7 @@ const screen2 = () => {
       <View style={{ flex: 1, justifyContent: 'space-between', padding: 20 }}>
         <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
           <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>OmniStock</Text>
-          <TouchableOpacity onPress={() => router.push('/onboarding/screen3')}>
+          <TouchableOpacity onPress={async () => {await AsyncStorage.setItem("onboardingComplete","true");router.replace("/onboarding/store-setup");}}>
             <Text style={{fontSize: 15}}>Skip</Text>
           </TouchableOpacity>
         </View>

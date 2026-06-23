@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const screen3 = () => {
   const router = useRouter()
@@ -10,7 +11,7 @@ const screen3 = () => {
       <View style={{ flex: 1, justifyContent: 'space-between', padding: 20 }}>
         <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
           <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>OmniStock</Text>
-          <TouchableOpacity onPress={() => router.push('/onboarding/store-setup')}>
+          <TouchableOpacity onPress={async () => {await AsyncStorage.setItem("onboardingComplete","true");router.replace("/onboarding/store-setup");}}>
             <Text style={{fontSize: 15}}>Skip</Text>
           </TouchableOpacity>
         </View>
@@ -33,7 +34,7 @@ const screen3 = () => {
             <View style={{ backgroundColor: 'lightgrey', height:10, width: 10, borderRadius: 6 }}></View>
             <View style={{ backgroundColor: '#008080', height:10, width: 10, borderRadius: 5 }}></View>
           </View>
-          <TouchableOpacity style={{alignItems: 'center'}} onPress={() => router.push('/onboarding/store-setup')}>
+          <TouchableOpacity style={{alignItems: 'center'}} onPress={async () => {await AsyncStorage.setItem("onboardingComplete","true");router.replace("/onboarding/store-setup");}}>
             <View style={{ backgroundColor: "#008080", paddingVertical: 15, paddingHorizontal: 30, borderRadius: 20, width: '90%', alignItems: 'center'}}>
               <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16}}>
                 Get Started

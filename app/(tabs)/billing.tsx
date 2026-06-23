@@ -244,12 +244,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#F9FAFB"
   },
-
   invoiceNumber: {
     fontSize: 16,
     fontWeight: "700"
   },
-
   paymentMethod: {
     color: "#6b7280",
     marginTop: 4
