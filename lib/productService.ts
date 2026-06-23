@@ -1,5 +1,6 @@
 import db from "./database"
 
+//save a new product to the inventory
 export const saveProduct = (product: {
     name: string;
     sku: string;
@@ -40,12 +41,14 @@ export const saveProduct = (product: {
     );
 };
 
+//it gets products for different screen to use as data
 export const getProducts = () => {
   return db.getAllSync(
     `SELECT * FROM products`
   );
 };
 
+//it gets the categories from the products
 export const getCategories = () => {
     return db.getAllSync(`
         SELECT DISTINCT category
@@ -55,6 +58,7 @@ export const getCategories = () => {
         `);
 };
 
+//gets the product id using the database id lol
 export const getProductById = (id: number) => {
     return db.getFirstSync(
         `SELECT * FROM products WHERE id = ?`,
@@ -62,6 +66,7 @@ export const getProductById = (id: number) => {
     );
 };
 
+//updates the product info
 export const updateProduct = (
   id: number,
   product: {
@@ -103,6 +108,7 @@ export const updateProduct = (
   );
 };
 
+//removes a product from the inventory
 export const deleteProduct = (id: number) => {
   db.runSync(
     `DELETE FROM products WHERE id = ?`,
@@ -110,6 +116,7 @@ export const deleteProduct = (id: number) => {
   );
 };
 
+//it reduces the product stock after billing
 export const reduceProductStock= (
   productId: number,
   quantitySold: number
@@ -123,4 +130,3 @@ export const reduceProductStock= (
     [quantitySold, productId]
   );
 };
-

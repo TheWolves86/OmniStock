@@ -1,8 +1,12 @@
 import * as SQLite from "expo-sqlite";
 
+//it creates and conntect to the database duuhhh
 const db = SQLite.openDatabaseSync("omnistock.db")
 
+//create the required tables for our app
 export const initDatabase = () => {
+
+    //store all the products in the inventory
     db.execSync(`
     CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -18,6 +22,7 @@ export const initDatabase = () => {
     );
   `);
 
+  //stores invoice info
   db.execSync(`
     CREATE TABLE IF NOT EXISTS bills (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,6 +38,7 @@ export const initDatabase = () => {
     );
   `);
 
+  //stores product info inside each bill
   db.execSync(`
     CREATE TABLE IF NOT EXISTS bill_items (
       id INTEGER PRIMARY KEY AUTOINCREMENT,

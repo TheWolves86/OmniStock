@@ -1,5 +1,6 @@
 import db from "./database"
 
+//save the invoice and its info into the database
 export const saveBill = (
     bill: {
         invoiceNumber: string;
@@ -14,6 +15,7 @@ export const saveBill = (
     },
     items: any[]
 ) => {
+    //it saves the bill summary info
     const result = db.runSync(
         `
         INSERT INTO bills (
@@ -42,8 +44,10 @@ export const saveBill = (
         ]
     );
 
+    //get the bill id
     const billId = result.lastInsertRowId;
 
+    //save every product info that belongs to the bill
     items.forEach((item) => {
         db.runSync(
             `
@@ -71,6 +75,7 @@ export const saveBill = (
     });
 };
 
+//get all the products that are inside a specific bill
 export const getBills = () => {
     return db.getAllSync(
         `
