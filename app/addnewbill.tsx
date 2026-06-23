@@ -7,9 +7,10 @@ import { getProducts } from "../lib/productService"
 import { saveBill} from "../lib/billService"
 import { reduceProductStock } from '../lib/productService'
 
-
+//create and manage a new customer bill
 const billing = () => {
   const router = useRouter();
+  //States for various things like cart,customer and payment details
   const [ cartItems, setCartItems ] = useState<any[]>([]);
   const [ paymentMethod, setPaymentMethod] = useState("Cash")
   const [ products, setProducts ] = useState<any[]>([]);
@@ -19,16 +20,18 @@ const billing = () => {
   const [ customerPhone, setCustomerPhone] = useState("");
   const [ customerAddress, setCustomerAddress] = useState("");
 
+  //loads products before using them in ui
   useEffect(() => {
     const data = getProducts();
     setProducts(data as any[]);
   }, []);
 
-
+  //increase the quantity of the product
   const increaseQuantity = (id: number) => {
     setCartItems((prev) => prev.map((item) => item.id === id ? {...item, quantity: item.quantity + 1} : item))
   }
 
+  //decreases the quantity of the product
   const decreaseQuantity = (id: number) => {
   setCartItems((prev) =>
     prev
@@ -41,12 +44,14 @@ const billing = () => {
     );
   };
 
+  //filteres the product by name
   const filteredProducts = products.filter((product) =>
   (product.name || "")
     .toLowerCase()
     .includes(searchQuery.toLowerCase())
   );
 
+  //calculate the total of the bill
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -59,11 +64,13 @@ const billing = () => {
   );
   const grandTotal = subtotal + gstTotal;
 
+  //save and update the invoice and clears the cart
   const handleGenerateInvoice = () => {
     if (cartItems.length === 0) {
       return;
     }
      
+    //Stores the invoice data in the database
     saveBill(
       ({
         invoiceNumber: `INV-${Date.now()}`,
@@ -80,6 +87,7 @@ const billing = () => {
       cartItems
     );
 
+    //reduce the invenotry stock after bill is done
     cartItems.forEach((item) => {
       reduceProductStock(
         item.id,
@@ -103,11 +111,13 @@ const billing = () => {
           <Text style={styles.icon}>👤</Text>
         </TouchableOpacity>
       </View>
+      {/* Customer Information */}
       <View style={styles.customerContainer}>
         <TextInput placeholder='Customer Name' value={customerName} onChangeText={setCustomerName} style={styles.customerInput} maxLength={100}/>
         <TextInput placeholder='Phone Number' value={customerPhone} onChangeText={setCustomerPhone} style={styles.customerInput} maxLength={15} keyboardType="phone-pad"/>
         <TextInput placeholder='Address'value={customerAddress} onChangeText={setCustomerAddress} style={styles.customerInput} maxLength={255}/>
       </View>
+      {/*Search Bar duuhh*/}
       <View style={styles.searchBar}>
         <Text style={{ marginRight: 10 }}>🔍</Text>
         <TextInput placeholder='Search by product name...' style={{ flex: 1}} value={searchQuery} onChangeText={setSearchQuery}/>
@@ -174,6 +184,7 @@ const billing = () => {
         ))}
       </ScrollView>
 
+      {/*Select Payment Method*/}
       <View style={styles.paymentContainer}>
         <TouchableOpacity
           style={[
@@ -206,6 +217,7 @@ const billing = () => {
         </TouchableOpacity>
       </View>
 
+      {/*Bill Summary*/}
       <View style={styles.bottomContainer}>
         <View style={styles.summaryLeft}>
           <View style={styles.summaryRow}>
@@ -236,7 +248,8 @@ const billing = () => {
           </Text>
         </View>
       </View>
-
+      
+      {/*Billing Actions*/}
       <View style={styles.actionContainer}>
         <TouchableOpacity style={styles.holdButton}>
           <Text style={styles.holdButtonText}>

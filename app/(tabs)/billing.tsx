@@ -3,7 +3,7 @@ import React, { useEffect, useState} from 'react'
 import { getBills, getBillsItems } from '../../lib/billService'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useRouter } from 'expo-router'
-//
+
 
 const Billing = () => {
   const [bills, setBills] = useState<any[]>([]);
@@ -12,6 +12,7 @@ const Billing = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter()
 
+  //Loads all the saved bills
   useEffect(() => {
     const data = getBills();
     setBills(data as any[]);
@@ -39,7 +40,7 @@ const Billing = () => {
             No Bills Yet
           </Text>
         )}
-
+        {/*Render The invoice cards*/}
         {bills.map((bill) => (
           <TouchableOpacity
             key={bill.id}
@@ -75,9 +76,11 @@ const Billing = () => {
           </TouchableOpacity>
         ))}
       </ScrollView>
+      {/*Add button to add a new bill */}
       <TouchableOpacity style={styles.fab} onPress={() => router.push('/addnewbill')}>
         <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>
+      {/*Invoice dtails modal */}
       <Modal
         visible={modalVisible}
         animationType="slide"

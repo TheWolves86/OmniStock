@@ -13,6 +13,8 @@ export default function Inventory() {
   const [ categories, setCategories ] = useState<any[]>([]);
   const [ selectedCategory, setSelectedCategory ] = useState("All")
   const [ searchQuery, setSearchQuery ] = useState("")
+
+  //loads the product data
   const loadProducts = () => {
     const data = getProducts();
     setProducts(data as any[]);
@@ -21,11 +23,14 @@ export default function Inventory() {
     setCategories(categoryData as any[]);
   };
 
+  //Refresh invenotry evrytime something changes
   useFocusEffect(
     useCallback(() => {
       loadProducts();
     }, [])
   );
+
+  //filtering  by categories
   const filteredProducts = products.filter((product) => {
     const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
 
@@ -40,18 +45,21 @@ export default function Inventory() {
         
     }}
     >
+    {/*Header */}
       <View style={styles.header}>
         <Text style={styles.headerText}>Products</Text>
         <TouchableOpacity style={styles.accountIcon}>
           <Text style={styles.accountIconText}>👤</Text>
         </TouchableOpacity>
       </View>
+      {/*Product Search Bar*/}
       <View style={styles.searchBar}>
         <TouchableOpacity style={{}}>
           <Text style={styles.searchBarSearchIcon}>🔍</Text>
         </TouchableOpacity>
         <TextInput placeholder="Search products..." style={{flex: 1}} value={searchQuery} onChangeText={setSearchQuery}></TextInput>
       </View>
+      {/*Catgory fltered products*/}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 10 }}>
         <TouchableOpacity style={selectedCategory === "All" ? styles.activeChip : styles.chip} onPress={() => setSelectedCategory("All")}>
           <Text style={selectedCategory === "All" ? styles.activeChipText : styles.chipText}>All</Text>
@@ -63,6 +71,7 @@ export default function Inventory() {
           </TouchableOpacity>
         ))}
       </ScrollView>
+      {/*It renders the product list */}
       <View style={styles.productCardList}>
         {filteredProducts.map((product) => (
           <ProductCard
@@ -81,6 +90,7 @@ export default function Inventory() {
         ))}
       </View>
     </ScrollView>
+    {/*Add button to add a product*/}
     <Pressable style={{position: 'absolute',bottom:10,right:20, width:56,height:56,borderRadius: 28,backgroundColor: "#008080", justifyContent: "center", alignItems: "center", elevation: 8}} onPress={() => router.push('/onboarding/addproduct')}>
       <Text style={{color: "#FFFFFF",fontSize: 28, fontWeight: "300"}}>+</Text>
     </Pressable>
@@ -154,4 +164,3 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   }
 })
-//
