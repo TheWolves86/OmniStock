@@ -67,9 +67,10 @@ const billing = () => {
     saveBill(
       ({
         invoiceNumber: `INV-${Date.now()}`,
-        customerName,
-        customerPhone,
-        customerAddress: "",
+        // Security Fix: Truncate input values to prevent DoS attacks via excessively large string payloads
+        customerName: customerName.slice(0, 100),
+        customerPhone: customerPhone.slice(0, 15),
+        customerAddress: customerAddress.slice(0, 255),
         paymentMethod,
         subtotal,
         gstTotal,
@@ -103,9 +104,9 @@ const billing = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.customerContainer}>
-        <TextInput placeholder='Customer Name' value={customerName} onChangeText={setCustomerName} style={styles.customerInput}/>
-        <TextInput placeholder='Phone Number' value={customerPhone} onChangeText={setCustomerPhone} style={styles.customerInput}/>
-        <TextInput placeholder='Address'value={customerAddress} onChangeText={setCustomerAddress} style={styles.customerInput}/>
+        <TextInput placeholder='Customer Name' value={customerName} onChangeText={setCustomerName} style={styles.customerInput} maxLength={100}/>
+        <TextInput placeholder='Phone Number' value={customerPhone} onChangeText={setCustomerPhone} style={styles.customerInput} maxLength={15} keyboardType="phone-pad"/>
+        <TextInput placeholder='Address'value={customerAddress} onChangeText={setCustomerAddress} style={styles.customerInput} maxLength={255}/>
       </View>
       <View style={styles.searchBar}>
         <Text style={{ marginRight: 10 }}>🔍</Text>
