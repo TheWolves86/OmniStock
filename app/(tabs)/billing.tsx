@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal} from 'react-native'
 import React, { useEffect, useState} from 'react'
-import { getBills } from '../../lib/billService'
+import { getBills, getBillsItems } from '../../lib/billService'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useRouter } from 'expo-router'
+//
 
 const Billing = () => {
   const [bills, setBills] = useState<any[]>([]);
+  const [selectedBill, setSelectedBill] = useState<any>(null);
+  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter()
 
   useEffect(() => {
@@ -35,8 +39,18 @@ const Billing = () => {
             No Bills Yet
           </Text>
         )}
+
         {bills.map((bill) => (
-          <View key={bill.id} style={styles.billCard}>
+          <TouchableOpacity
+            key={bill.id}
+            style={styles.billCard}
+            onPress={() => {
+              const items = getBillsItems(bill.id);
+              setSelectedBill(bill);
+              setSelectedItems(items as any[]);
+              setModalVisible(true);
+            }}
+          >
             <View style={{ flex: 1}}>
               <Text style={styles.customerName}>
                 {bill.customerName || "Walk-in Customer"}
@@ -58,12 +72,137 @@ const Billing = () => {
                 {new Date(bill.createdAt).toLocaleDateString()}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
       <TouchableOpacity style={styles.fab} onPress={() => router.push('/addnewbill')}>
         <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            justifyContent: "center",
+            padding: 20,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              borderRadius: 20,
+              padding: 20,
+              maxHeight: "80%",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: "700",
+                marginBottom: 12,
+              }}
+            >
+              Invoice Details
+            </Text>
+
+            {selectedBill && (
+              <>
+                <Text>
+                  Invoice: {selectedBill.invoiceNumber}
+                </Text>
+
+                <Text>
+                  Customer: {selectedBill.customerName}
+                </Text>
+
+                <Text>
+                  Phone: {selectedBill.customerPhone}
+                </Text>
+
+                <Text>
+                  Address: {selectedBill.customerAddress}
+                </Text>
+
+                <Text>
+                  Date: {new Date(selectedBill.createdAt).toLocaleDateString()}
+                </Text>
+
+                <Text>
+                  Payment: {selectedBill.paymentMethod}
+                </Text>
+
+                <Text
+                  style={{
+                    marginTop: 20,
+                    fontWeight: "700",
+                  }}
+                >
+                  Items
+                </Text>
+
+                {selectedItems.map((item) => (
+                  <View
+                    key={item.id}
+                    style={{
+                      marginTop: 12,
+                      paddingBottom: 12,
+                      borderBottomWidth: 1,
+                      borderColor: "#E5E7EB",
+                    }}
+                  >
+                    <Text>{item.productName}</Text>
+
+                    <Text>
+                      ₹{item.price} × {item.quantity}
+                    </Text>
+
+                    <Text>
+                      GST: {item.gstRate}%
+                    </Text>
+
+                    <Text>
+                      ₹{item.lineTotal}
+                    </Text>
+                  </View>
+                ))}
+
+                <Text
+                  style={{
+                    marginTop: 20,
+                    fontWeight: "700",
+                  }}
+                >
+                  Grand Total: ₹{selectedBill.grandTotal}
+                </Text>
+              </>
+            )}
+
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={{
+                marginTop: 20,
+                backgroundColor: "#008080",
+                padding: 14,
+                borderRadius: 12,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontWeight: "700",
+                }}
+              >
+                Close
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
   </SafeAreaView>
   )
 }

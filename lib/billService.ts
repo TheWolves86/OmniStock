@@ -80,3 +80,14 @@ export const getBills = () => {
         `
     )
 }
+
+export const getBillsItems = (billId: number) => {
+    return db.getAllSync(
+        `
+        SELECT *
+        FROM bill_items
+        WHERE billId = ?
+        `,
+        [billId]
+    );
+}

@@ -247,6 +247,5 @@ footerbuttontext: {
   fontWeight: "bold"
 }
 })
-//bro i am cooked
 
 export default StoreSetup
