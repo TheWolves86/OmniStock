@@ -24,6 +24,17 @@ const Billing = () => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.container}>
+        {bills.length === 0 && (
+          <Text
+            style={{
+              textAlign: "center",
+              marginTop: 40,
+              color: "#6B7280",
+            }}
+          >
+            No Bills Yet
+          </Text>
+        )}
         {bills.map((bill) => (
           <View key={bill.id} style={styles.billCard}>
             <View style={{ flex: 1}}>
@@ -104,7 +115,6 @@ const styles = StyleSheet.create({
     color: "#6b7280",
     marginTop: 4
   },
-  
   amount: {
     fontSize: 18,
     fontWeight: "700",
@@ -115,7 +125,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginBottom: 4
   },
-
   date: {
     color: "#6B7280",
     marginTop: 4,
@@ -125,23 +134,17 @@ const styles = StyleSheet.create({
   position: "absolute",
   bottom: 24,
   right: 24,
-
   width: 60,
   height: 60,
   borderRadius: 30,
-
   backgroundColor: "#008080",
-
   justifyContent: "center",
   alignItems: "center",
-
   elevation: 5,
 },
-
 fabText: {
   color: "white",
   fontSize: 32,
   fontWeight: "700",
 }
-
-});//
+});
