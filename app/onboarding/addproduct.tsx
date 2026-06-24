@@ -90,9 +90,9 @@ const AddProduct = () => {
         try {
             if (id) {
                 updateProduct(Number(id), {
-                name: productName.trim(),
-                sku: sku.trim(),
-                category: category.trim(),
+                name: productName.trim().slice(0, 100),
+                sku: sku.trim().slice(0, 50),
+                category: category.trim().slice(0, 50),
                 purchasePrice: Number(purchasePrice),
                 sellingPrice: Number(sellingPrice),
                 gstRate: Number(gstRate),
@@ -103,9 +103,9 @@ const AddProduct = () => {
             Alert.alert("Success", "Product Updated");
             } else {
             saveProduct({
-                name: productName.trim(),
-                sku: sku.trim(),
-                category: category.trim(),
+                name: productName.trim().slice(0, 100),
+                sku: sku.trim().slice(0, 50),
+                category: category.trim().slice(0, 50),
                 purchasePrice: Number(purchasePrice),
                 sellingPrice: Number(sellingPrice),
                 gstRate: Number(gstRate),
@@ -156,6 +156,7 @@ const AddProduct = () => {
                                     placeholder="e.g. Centrifuge Tube 50ml"
                                     maxLength={100} value={productName}
                                     onChangeText={setProductName}
+                                    maxLength={100}
                                 />
                             </View>
                         </View>
@@ -169,6 +170,7 @@ const AddProduct = () => {
                                     maxLength={50} value={sku}
                                     autoCapitalize='characters'
                                     onChangeText={setSku}
+                                    maxLength={50}
                                 />
                             </View>
                         </View>
@@ -181,6 +183,7 @@ const AddProduct = () => {
                                     placeholder="e.g. Lab Consumables"
                                     maxLength={50} value={category}
                                     onChangeText={setCategory}
+                                    maxLength={50}
                                 />
                             </View>
                         </View>
@@ -204,6 +207,7 @@ const AddProduct = () => {
                                     keyboardType="numeric"
                                     maxLength={20} value={purchasePrice}
                                     onChangeText={setPurchasePrice}
+                                    maxLength={20}
                                 />
                             </View>
                         </View>
@@ -218,6 +222,7 @@ const AddProduct = () => {
                                     keyboardType="decimal-pad"
                                     maxLength={20} value={sellingPrice}
                                     onChangeText={setSellingPrice}
+                                    maxLength={20}
                                 />
                             </View>
                         </View>
@@ -231,6 +236,7 @@ const AddProduct = () => {
                                     keyboardType="numeric"
                                     maxLength={5} value={gstRate}
                                     onChangeText={setGstRate}
+                                    maxLength={20}
                                 />
                                 <Text style={[styles.symbolText, { paddingRight: 12, paddingLeft: 0 }]}>%</Text>
                             </View>
@@ -254,6 +260,7 @@ const AddProduct = () => {
                                     keyboardType="numeric"
                                     maxLength={20} value={currentStock}
                                     onChangeText={setCurrentStock}
+                                    maxLength={20}
                                 />
                             </View>
                         </View>
@@ -267,6 +274,7 @@ const AddProduct = () => {
                                     keyboardType="numeric"
                                     maxLength={20} value={lowStockThreshold}
                                     onChangeText={setLowStockThreshold}
+                                    maxLength={20}
                                 />
                             </View>
                             <View style={styles.alertBadge}>

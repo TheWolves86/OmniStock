@@ -1,4 +1,4 @@
-## 2025-02-27 - Implement Explicit Input Length Bounds
-**Vulnerability:** Denial of Service (DoS) / App Crash risk due to unbounded inputs in React Native.
-**Learning:** React Native `TextInput` components do not have inherent length limits. Attackers or erroneous operations could paste excessively large strings (e.g., megabytes of text), causing severe memory pressure, UI thread freezing, and app crashes, particularly when states are updated on every keystroke.
-**Prevention:** Always enforce input length limits by using the `maxLength` property on React Native `TextInput` components and explicitly truncating submission payloads (e.g., using `.slice()`) to prevent DoS risks and ensure data integrity.
+## 2026-06-24 - Replace execSync with runSync for safe database initialization
+**Vulnerability:** Use of `execSync` instead of `runSync` for database initialization. While static, `execSync` is often flagged by static analysis as a potential vector if refactored to include user input, because it does not support parameterization.
+**Learning:** `expo-sqlite` allows `execSync` for running multiple statements at once but its lack of parameter bindings is a security risk. Single statements should use `runSync` or `runAsync`.
+**Prevention:** Strictly enforce using `runSync` instead of `execSync` for single SQL statements in `expo-sqlite`.
