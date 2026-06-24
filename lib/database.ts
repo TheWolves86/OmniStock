@@ -7,7 +7,7 @@ const db = SQLite.openDatabaseSync("omnistock.db")
 export const initDatabase = () => {
 
     //store all the products in the inventory
-    db.execSync(`
+    db.runSync(`
     CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -23,7 +23,7 @@ export const initDatabase = () => {
   `);
 
   //stores invoice info
-  db.execSync(`
+  db.runSync(`
     CREATE TABLE IF NOT EXISTS bills (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       invoiceNumber TEXT,
@@ -39,7 +39,7 @@ export const initDatabase = () => {
   `);
 
   //stores product info inside each bill
-  db.execSync(`
+  db.runSync(`
     CREATE TABLE IF NOT EXISTS bill_items (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       billId INTEGER,
