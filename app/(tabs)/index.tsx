@@ -267,19 +267,16 @@ alertProductName: {
   fontSize: 16,
   fontWeight: "700"
 },
-
 alertCategory: {
   color: "#6B7280",
   marginTop: 4
 },
-
 stockBadge: {
   backgroundColor: "#FEE2E2",
   paddingHorizontal: 12,
   paddingVertical: 6,
   borderRadius: 20
 },
-
 stockBadgeText: {
   color: "#DC2626",
   fontWeight: "700"
