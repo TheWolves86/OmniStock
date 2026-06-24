@@ -154,7 +154,7 @@ const AddProduct = () => {
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="e.g. Centrifuge Tube 50ml"
-                                    value={productName}
+                                    maxLength={100} value={productName}
                                     onChangeText={setProductName}
                                 />
                             </View>
@@ -166,7 +166,7 @@ const AddProduct = () => {
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="e.g. CT-50-WH"
-                                    value={sku}
+                                    maxLength={50} value={sku}
                                     autoCapitalize='characters'
                                     onChangeText={setSku}
                                 />
@@ -179,7 +179,7 @@ const AddProduct = () => {
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="e.g. Lab Consumables"
-                                    value={category}
+                                    maxLength={50} value={category}
                                     onChangeText={setCategory}
                                 />
                             </View>
@@ -202,7 +202,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="0.00"
                                     keyboardType="numeric"
-                                    value={purchasePrice}
+                                    maxLength={20} value={purchasePrice}
                                     onChangeText={setPurchasePrice}
                                 />
                             </View>
@@ -216,7 +216,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="0.00"
                                     keyboardType="decimal-pad"
-                                    value={sellingPrice}
+                                    maxLength={20} value={sellingPrice}
                                     onChangeText={setSellingPrice}
                                 />
                             </View>
@@ -229,7 +229,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="18"
                                     keyboardType="numeric"
-                                    value={gstRate}
+                                    maxLength={5} value={gstRate}
                                     onChangeText={setGstRate}
                                 />
                                 <Text style={[styles.symbolText, { paddingRight: 12, paddingLeft: 0 }]}>%</Text>
@@ -252,7 +252,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="0"
                                     keyboardType="numeric"
-                                    value={currentStock}
+                                    maxLength={20} value={currentStock}
                                     onChangeText={setCurrentStock}
                                 />
                             </View>
@@ -265,7 +265,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="10"
                                     keyboardType="numeric"
-                                    value={lowStockThreshold}
+                                    maxLength={20} value={lowStockThreshold}
                                     onChangeText={setLowStockThreshold}
                                 />
                             </View>

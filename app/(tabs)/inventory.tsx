@@ -57,7 +57,7 @@ export default function Inventory() {
         <TouchableOpacity style={{}}>
           <Text style={styles.searchBarSearchIcon}>🔍</Text>
         </TouchableOpacity>
-        <TextInput placeholder="Search products..." style={{flex: 1}} value={searchQuery} onChangeText={setSearchQuery}></TextInput>
+        <TextInput placeholder="Search products..." style={{flex: 1}} maxLength={100} value={searchQuery} onChangeText={setSearchQuery}></TextInput>
       </View>
       {/*Catgory fltered products*/}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 10 }}>
