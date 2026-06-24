@@ -154,7 +154,7 @@ const AddProduct = () => {
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="e.g. Centrifuge Tube 50ml"
-                                    value={productName}
+                                    maxLength={100} value={productName}
                                     onChangeText={setProductName}
                                     maxLength={100}
                                 />
@@ -167,7 +167,7 @@ const AddProduct = () => {
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="e.g. CT-50-WH"
-                                    value={sku}
+                                    maxLength={50} value={sku}
                                     autoCapitalize='characters'
                                     onChangeText={setSku}
                                     maxLength={50}
@@ -181,7 +181,7 @@ const AddProduct = () => {
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="e.g. Lab Consumables"
-                                    value={category}
+                                    maxLength={50} value={category}
                                     onChangeText={setCategory}
                                     maxLength={50}
                                 />
@@ -205,7 +205,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="0.00"
                                     keyboardType="numeric"
-                                    value={purchasePrice}
+                                    maxLength={20} value={purchasePrice}
                                     onChangeText={setPurchasePrice}
                                     maxLength={20}
                                 />
@@ -220,7 +220,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="0.00"
                                     keyboardType="decimal-pad"
-                                    value={sellingPrice}
+                                    maxLength={20} value={sellingPrice}
                                     onChangeText={setSellingPrice}
                                     maxLength={20}
                                 />
@@ -234,7 +234,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="18"
                                     keyboardType="numeric"
-                                    value={gstRate}
+                                    maxLength={5} value={gstRate}
                                     onChangeText={setGstRate}
                                     maxLength={20}
                                 />
@@ -258,7 +258,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="0"
                                     keyboardType="numeric"
-                                    value={currentStock}
+                                    maxLength={20} value={currentStock}
                                     onChangeText={setCurrentStock}
                                     maxLength={20}
                                 />
@@ -272,7 +272,7 @@ const AddProduct = () => {
                                     style={styles.input} 
                                     placeholder="10"
                                     keyboardType="numeric"
-                                    value={lowStockThreshold}
+                                    maxLength={20} value={lowStockThreshold}
                                     onChangeText={setLowStockThreshold}
                                     maxLength={20}
                                 />
