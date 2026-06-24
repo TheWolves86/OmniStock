@@ -9,6 +9,7 @@ import { getBills } from "../../lib/billService"
 const Dashboard = () => {
   const router = useRouter();
 
+  //Store the states
   const [ storeName, setStoreName ] = useState("My Store")
   const [ totalProducts, setTotalProducts ] = useState(0);
   const [ inventoryValue, setInventoryValue ] = useState(0);
@@ -16,10 +17,12 @@ const Dashboard = () => {
   const [ lowStockCount, setLowStockCount ] = useState(0);
   const [ lowStockProducts, setLowStockProducts] = useState<any[]>([]);
 
+  //loads dashboard data when u open up the page
   useEffect(() => {
     loadDashboard();
   }, [])
 
+  //fetch details anc calculate metrics
   const loadDashboard = async () => {
     const storeData = await AsyncStorage.getItem("storeSetup")
 
@@ -52,6 +55,7 @@ const Dashboard = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView >
+        {/*Header*/}
         <View style={styles.header}>
           <Text style={styles.logo}>
             OmniStock
@@ -60,6 +64,7 @@ const Dashboard = () => {
             <Text style={styles.icon}>⚙️</Text>
           </TouchableOpacity>
         </View>
+        {/*Gretting Box*/}
         <View style={styles.greetingContainer}>
           <Text style={styles.greeting}>
             Good Morning,
@@ -68,7 +73,7 @@ const Dashboard = () => {
             {storeName}
           </Text>
         </View>
-
+        {/*Analytics*/}
         <View style={styles.cardsContainer}>
           <View style={styles.card}>
             <Text style={styles.cardTitle}>
@@ -107,7 +112,7 @@ const Dashboard = () => {
         <Text style={styles.sectionTitle}>
           Quick Actions
         </Text>
-
+        {/*Quick Actions*/}
         <View style={styles.quickActions}>
           <TouchableOpacity style={styles.actionCard} onPress={() => router.push('/onboarding/addproduct')}>
             <Text style={styles.actionIcon}>➕</Text>
@@ -129,7 +134,7 @@ const Dashboard = () => {
         <Text style={styles.sectionTitle}>
           Low Stock Alerts
         </Text>
-
+        {/*Low stock Container*/}
         <View style={styles.alertContainer}>
           {lowStockProducts.length === 0 ? (
             <Text>No low stock products 🎉</Text>
