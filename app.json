@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "OmniStock",
-    "slug": "OmniStock",
+    "slug": "omnistock",
     "scheme": "omnistock",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,6 +17,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ishamgadia.omnistock",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -29,6 +30,12 @@
     "plugins": [
       "expo-sqlite",
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "67621ec8-851b-4b12-b6a0-2137d2586462"
+      }
+    }
   }
 }
