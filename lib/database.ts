@@ -53,4 +53,11 @@ export const initDatabase = () => {
   `);
 }
 
+// Sentinel: Clear database to prevent data remanence when app is reset
+export const clearDatabase = () => {
+  db.runSync(`DELETE FROM products`);
+  db.runSync(`DELETE FROM bills`);
+  db.runSync(`DELETE FROM bill_items`);
+}
+
 export default db;

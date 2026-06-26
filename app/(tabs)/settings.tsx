@@ -10,6 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import { clearDatabase } from "../../lib/database";
 
 const Settings = () => {
   const router = useRouter();
@@ -52,6 +53,9 @@ const Settings = () => {
               "storeSetupComplete"
             );
 
+            // Sentinel: Clear database to prevent Data Remanence
+            clearDatabase();
+
             router.replace("/");
           },
         },
@@ -73,6 +77,9 @@ const Settings = () => {
           style: "destructive",
           onPress: async () => {
             await AsyncStorage.clear();
+
+            // Sentinel: Clear database to prevent Data Remanence
+            clearDatabase();
 
             router.replace("/");
           },
