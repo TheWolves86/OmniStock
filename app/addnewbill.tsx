@@ -120,7 +120,8 @@ const billing = () => {
       {/*Search Bar duuhh*/}
       <View style={styles.searchBar}>
         <Text style={{ marginRight: 10 }}>🔍</Text>
-        <TextInput placeholder='Search by product name...' style={{ flex: 1}} value={searchQuery} onChangeText={setSearchQuery}/>
+        {/* Sentinel Security Fix: Added maxLength constraint to prevent client-side DoS risk */}
+        <TextInput placeholder='Search by product name...' style={{ flex: 1}} value={searchQuery} onChangeText={setSearchQuery} maxLength={100}/>
       </View>
       {searchQuery.length > 0 && (
         <ScrollView

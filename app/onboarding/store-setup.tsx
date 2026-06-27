@@ -23,8 +23,9 @@ const StoreSetup = () => {
       return
     }
 
+    // Sentinel Security Fix: Truncate storeName payload to prevent storage exhaustion/DoS attacks via huge strings
     const setupData = {
-      storeName,
+      storeName: storeName.trim().slice(0, 100),
       haveEmployee,
       selectedTemplate,
     }
