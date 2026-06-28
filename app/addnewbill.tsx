@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView} from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert} from 'react-native'
 import React, { useState, useEffect} from 'react'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useRouter } from "expo-router"
@@ -70,34 +70,40 @@ const billing = () => {
       return;
     }
      
-    //Stores the invoice data in the database
-    saveBill(
-      ({
-        invoiceNumber: `INV-${Date.now()}`,
-        // Security Fix: Truncate input values to prevent DoS attacks via excessively large string payloads
-        customerName: customerName.slice(0, 100),
-        customerPhone: customerPhone.slice(0, 15),
-        customerAddress: customerAddress.slice(0, 255),
-        paymentMethod,
-        subtotal,
-        gstTotal,
-        grandTotal,
-        createdAt: new Date().toISOString()
-      } as any),
-      cartItems
-    );
-
-    //reduce the invenotry stock after bill is done
-    cartItems.forEach((item) => {
-      reduceProductStock(
-        item.id,
-        item.quantity
+    try {
+      //Stores the invoice data in the database
+      saveBill(
+        ({
+          invoiceNumber: `INV-${Date.now()}`,
+          // Security Fix: Truncate input values to prevent DoS attacks via excessively large string payloads
+          customerName: customerName.slice(0, 100),
+          customerPhone: customerPhone.slice(0, 15),
+          customerAddress: customerAddress.slice(0, 255),
+          paymentMethod,
+          subtotal,
+          gstTotal,
+          grandTotal,
+          createdAt: new Date().toISOString()
+        } as any),
+        cartItems
       );
-    });
 
-    setCartItems([]);
+      //reduce the invenotry stock after bill is done
+      cartItems.forEach((item) => {
+        reduceProductStock(
+          item.id,
+          item.quantity
+        );
+      });
 
-    alert("Invoice Saved")
+      setCartItems([]);
+
+      Alert.alert("Success", "Invoice Saved")
+    } catch (error) {
+      console.error("Database Error:", error);
+      // Security Fix: Do not expose database internals in UI error messages
+      Alert.alert("Error", "Failed to generate invoice. Please try again.");
+    }
   };
 
   return (
@@ -120,7 +126,7 @@ const billing = () => {
       {/*Search Bar duuhh*/}
       <View style={styles.searchBar}>
         <Text style={{ marginRight: 10 }}>🔍</Text>
-        <TextInput placeholder='Search by product name...' style={{ flex: 1}} value={searchQuery} onChangeText={setSearchQuery}/>
+        <TextInput placeholder='Search by product name...' style={{ flex: 1}} value={searchQuery} onChangeText={setSearchQuery} maxLength={100}/>
       </View>
       {searchQuery.length > 0 && (
         <ScrollView
