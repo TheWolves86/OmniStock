@@ -215,7 +215,7 @@ const AddProduct = () => {
                         <View style={styles.formRow}>
                             <Text style={styles.label}>Selling Price</Text>
                             <View style={[styles.inputContainer, styles.symbolContainer]}>
-                                <Text style={styles.symbolText}>$</Text>
+                                <Text style={styles.symbolText}>₹</Text>
                                 <TextInput 
                                     style={styles.input} 
                                     placeholder="0.00"

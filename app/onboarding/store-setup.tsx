@@ -51,7 +51,7 @@ const StoreSetup = () => {
   }
 }
   const templates = [
-  { id: "kirana", name: "Kirana", icon: "🛒" },
+  { id: "kirana", name: "Grocery", icon: "🛒" },
   { id: "clothing", name: "Clothing", icon: "👕" },
   { id: "saree", name: "Saree", icon: "🧵" },
   { id: "custom", name: "Create Your Own", icon: "⚙️" },
