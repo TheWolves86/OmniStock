@@ -19,60 +19,66 @@ Users can add products, generate bills, track inventory, monitor low-stock items
 
 ## Features
 
-### Store Setup
+### First-Time Setup
 
-* First-time onboarding flow
-* Store name 
-* Business template selection(tbh it doesnt matter)
+* Three-screen onboarding experience
+* Store setup screen
+* Store name configuration
+* Business template selection *(currently only for selection, does not affect the app yet)*
+* Employee setup option *(reserved for future updates)*
 
 ### Inventory Management
 
 * Add new products
-* Edit products
+* Edit existing products
 * Delete products
-* Product categories
-* Search products
-* Category filtering
-* Low stock threshold tracking
+* Organize products by category
+* Search products instantly
+* Filter products by category
+* Set low stock thresholds
 
 ### Billing System
 
-* Create bills/invoices
-* Add products to cart
-* Quantity controls
-* GST calculation
+* Generate invoices
+* Add multiple products to a bill
+* Update product quantities
+* Automatic GST calculation
 * Multiple payment methods
 
   * Cash
   * Card
   * UPI
-* Customer details
+* Customer information
 
   * Name
   * Phone Number
   * Address
-* Automatic stock reduction after sale
+* Automatic stock reduction after every successful sale
 
 ### Billing History
 
-* View all invoices
+* View all previous invoices
 * Customer information
-* Invoice details
-* Purchased items
+* Purchased products
 * Payment method
 * Invoice totals
+* Detailed invoice popup
 
 ### Dashboard
 
-* Total Products
-* Inventory Value
-* Total Bills
-* Low Stock Alerts
-* Quick Actions
+* Total products overview
+* Inventory value
+* Total bills generated
+* Low stock alerts
+* Quick action shortcuts
+* Personalized store greeting
 
----
+### Settings
 
-## Tech Stack
+* View store information
+* Reset onboarding
+* Reset store setup
+* Delete all application data
 
 ### Frontend
 
