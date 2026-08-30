@@ -127,3 +127,8 @@ Version: V1
 AI was used for writing sql queries and some deep logic stuff and jules was used for code review and version matches fix.
 
 ## Demo Video
+
+
+
+https://github.com/user-attachments/assets/e914dbd9-52da-41b6-9ec4-943544c00c61
+
